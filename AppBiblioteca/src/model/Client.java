@@ -1,6 +1,7 @@
+package model;
 
 public class Client {
-	
+
 	private int cpf;
 	private int name;
 	private int country;
@@ -10,85 +11,94 @@ public class Client {
 	private int street;
 	private int number;
 	private int cep;
-	
+	private int address;
+
 	public Client() {
 	}
-	
+
 	public void insertTo(TableType tab, Integer ref) {
 		switch (tab) {
-		case CEP:{
+		case CEP: {
 			cep = ref;
 			break;
 		}
-		case CITY:{
+		case CITY: {
 			city = ref;
 			break;
 		}
-		case COUNTRY:{
+		case COUNTRY: {
 			country = ref;
 			break;
 		}
-		case CPF:{
+		case CPF: {
 			cpf = ref;
 			break;
 		}
-		case NAME:{
+		case NAME: {
 			name = ref;
 			break;
 		}
-		case NEIGHBORHOOD:{
+		case NEIGHBORHOOD: {
 			neighborhood = ref;
 			break;
 		}
-		case NUMBER:{
+		case NUMBER: {
 			number = ref;
 			break;
 		}
-		case STATE:{
+		case STATE: {
 			state = ref;
 			break;
 		}
-		case STREET:{
+		case STREET: {
 			street = ref;
 			break;
 		}
-		default:{
+		case ADDRESS: {
+			address = ref;
 			break;
 		}
+		default: {
+			break;
+		}
+		}
 	}
-}	
+
 	public Integer obtainTo(TableType tab) {
 		switch (tab) {
-		case CEP:{
+		case CEP: {
 			return cep;
 		}
-		case CITY:{
+		case CITY: {
 			return city;
 		}
-		case COUNTRY:{
+		case COUNTRY: {
 			return country;
 		}
-		case CPF:{
+		case CPF: {
 			return cpf;
 		}
-		case NAME:{
+		case NAME: {
 			return name;
 		}
-		case NEIGHBORHOOD:{
+		case NEIGHBORHOOD: {
 			return neighborhood;
 		}
-		case NUMBER:{
+		case NUMBER: {
 			return number;
 		}
-		case STATE:{
+		case STATE: {
 			return state;
 		}
-		case STREET:{
+		case STREET: {
 			return street;
 		}
-		default:{
+		case ADDRESS: {
+			return address;
+		}
+		default: {
 			return null;
 		}
-	}
+		}
 	}
 }

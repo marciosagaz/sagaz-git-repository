@@ -1,5 +1,6 @@
+package model;
 
-public class ClientRegister extends Register{
+public class ClientRegister extends Register {
 
 	private String cpf;
 	private String name;
@@ -10,90 +11,100 @@ public class ClientRegister extends Register{
 	private String street;
 	private String number;
 	private String cep;
-	
+	private String address;
+
 	public ClientRegister() {
 		setType(RegisterType.CLIENT);
 	}
-	
+
 	@Override
 	public void setTo(TableType tab, String value) {
 		switch (tab) {
-		case CEP:{
+		case CEP: {
 			cep = value;
 			break;
 		}
-		case CITY:{
+		case CITY: {
 			city = value;
 			break;
 		}
-		case COUNTRY:{
+		case COUNTRY: {
 			country = value;
 			break;
 		}
-		case CPF:{
+		case CPF: {
 			cpf = value;
 			break;
 		}
-		case NAME:{
+		case NAME: {
+			System.out.println("name" + value);
 			name = value;
 			break;
 		}
-		case NEIGHBORHOOD:{
+		case NEIGHBORHOOD: {
 			neighborhood = value;
 			break;
 		}
-		case NUMBER:{
+		case NUMBER: {
 			number = value;
 			break;
 		}
-		case STATE:{
+		case STATE: {
 			state = value;
 			break;
 		}
-		case STREET:{
+		case STREET: {
 			street = value;
 			break;
 		}
-		default:{
+		case ADDRESS: {
+			address = value;
 			break;
 		}
-	}	
+		default: {
+			break;
+		}
+		}
 	}
 
 	@Override
 	public String obtainTo(TableType tab) {
 		switch (tab) {
-		case CEP:{
+		case CEP: {
 			return cep;
 		}
-		case CITY:{
+		case CITY: {
 			return city;
 		}
-		case COUNTRY:{
+		case COUNTRY: {
 			return country;
 		}
-		case CPF:{
+		case CPF: {
 			return cpf;
 		}
-		case NAME:{
+		case NAME: {
+			System.out.println("name ret" + name);
 			return name;
 		}
-		case NEIGHBORHOOD:{
+		case NEIGHBORHOOD: {
 			return neighborhood;
 		}
-		case NUMBER:{
+		case NUMBER: {
 			return number;
 		}
-		case STATE:{
+		case STATE: {
 			return state;
 		}
-		case STREET:{
+		case STREET: {
 			return street;
 		}
-		default:{
+		case ADDRESS: {
+			return address;
+		}
+		default: {
 			return null;
 		}
-	}
+		}
 	}
 
 }
