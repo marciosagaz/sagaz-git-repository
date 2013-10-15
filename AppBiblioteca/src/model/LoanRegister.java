@@ -12,6 +12,9 @@ public class LoanRegister extends Register {
 
 	private String isbn;
 	private String title;
+	private String name;
+	private String cpf;
+	private String returndate;
 
 	public LoanRegister() {
 		setType(RegisterType.LOAN);
@@ -28,6 +31,18 @@ public class LoanRegister extends Register {
 			title = value;
 			break;
 		}
+		case NAME: {
+			name = value;
+			break;
+		}
+		case CPF: {
+			cpf = value;
+			break;
+		}
+		case RETURNDATE: {
+			returndate = value;
+			break;
+		}
 		default: {
 			break;
 		}
@@ -42,6 +57,15 @@ public class LoanRegister extends Register {
 		}
 		case TITLE: {
 			return title;
+		}
+		case NAME: {
+			return name;
+		}
+		case CPF: {
+			return cpf;
+		}
+		case RETURNDATE: {
+			return returndate;
 		}
 		default: {
 			return null;

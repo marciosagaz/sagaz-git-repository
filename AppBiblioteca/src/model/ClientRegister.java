@@ -37,7 +37,6 @@ public class ClientRegister extends Register {
 			break;
 		}
 		case NAME: {
-			System.out.println("name" + value);
 			name = value;
 			break;
 		}
@@ -83,7 +82,6 @@ public class ClientRegister extends Register {
 			return cpf;
 		}
 		case NAME: {
-			System.out.println("name ret" + name);
 			return name;
 		}
 		case NEIGHBORHOOD: {

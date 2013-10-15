@@ -29,7 +29,7 @@ public class Loan {
 			title = ref;
 			break;
 		}
-		case PUBLISHER: {
+		case RETURNDATE: {
 			returndate = ref;
 			break;
 		}

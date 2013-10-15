@@ -63,7 +63,7 @@ public class Biblioteca {
     
     public void incluirNovoUsuario(ArrayList<String> novoUsuario) throws Exception{
         //incluir um novo usuario
-        //[cpf, nome, endereco, livroemprestado(sim,nao)]
+        //[cpf, nome, endereco]
         Register rg = new ClientRegister();
         rg.setTo(TableType.CPF, novoUsuario.get(0));
         rg.setTo(TableType.NAME, novoUsuario.get(1));
@@ -75,12 +75,11 @@ public class Biblioteca {
     
     public void alterarUmUsuario(ArrayList<String> alteraUsuario) throws Exception{
         //alterar um usuario existente
-        //[cpf, nome, endereco, endereço]
+        //[cpf, nome, endereco]
         Register rg = new ClientRegister();
         rg.setTo(TableType.CPF, alteraUsuario.get(0));
         rg.setTo(TableType.NAME, alteraUsuario.get(1));
         rg.setTo(TableType.ADDRESS, alteraUsuario.get(2));
-        rg.setTo(TableType.LOANTO, alteraUsuario.get(3));
         if (!dt.removeRegister(rg)) {
             throw new Exception("Não foi possível alterar o Usuário!");
         }
@@ -95,11 +94,22 @@ public class Biblioteca {
         Register rg = new ClientRegister();
         rg.setTo(TableType.NAME, excluiUsuario);
         ArrayList<Register> list  = dt.searchFor(rg);
-        if (list.isEmpty() && !dt.removeRegister(list.get(0))){
+        if (list.isEmpty() || dt.removeRegister(list.get(0))){
            throw new Exception("Não foi possível excluir o Usuário!");         
         }     
     }
     
+    public void incluirNovoLivro(ArrayList<String> novoLivro){
+    	//cadastrar um novo objeto livro
+    	//[ISBN, Titulo, editora, autores]
+    	Register rg = new BookRegister();
+    	rg.setTo(TableType.ISBN, novoLivro.get(0));
+    	rg.setTo(TableType.TITLE, novoLivro.get(1));
+    	rg.setTo(TableType.PUBLISHER, novoLivro.get(2));
+    	rg.setTo(TableType.AUTHOR, novoLivro.get(3));
+    	dt.addRegister(rg);
+    }
+
     public ArrayList<String> pesquisarLivros(String isbn){
         //Pesquisa um livro e retorna um array com os dados do livro
         //[ISBN, Titulo, editora, autores]
@@ -116,6 +126,26 @@ public class Biblioteca {
             return returned;   
         }        
         return returned;
+    }
+    
+    public void alterarUmLivro(ArrayList<String> alterarLivro){
+    	//alterar um objeto livro existente
+    	//[ISBN, Titulo, editora, autores]
+    	Register rg = new BookRegister();
+    	rg.setTo(TableType.ISBN, alterarLivro.get(0));
+    	dt.removeRegister(rg);
+    	rg.setTo(TableType.TITLE, alterarLivro.get(1));
+    	rg.setTo(TableType.PUBLISHER, alterarLivro.get(2));
+    	rg.setTo(TableType.AUTHOR, alterarLivro.get(3));
+    	dt.addRegister(rg);
+    }
+    
+    public void excluirUmLivro(String isbn){
+    	//exlui um objeto livro existente
+    	//[ISBN, Titulo, editora, autores]
+    	Register rg = new BookRegister();
+    	rg.setTo(TableType.ISBN, isbn);
+    	dt.removeRegister(rg);
     }
     
     public ArrayList<String> pesquisarLivroEmprestado(String isbn){
@@ -137,60 +167,34 @@ public class Biblioteca {
         return returned;
     }
     
-    public void emprestarLivros(Vector<String> emprestimo){
+    public void emprestarLivros(Vector<String[]> emprestarLivro){
         //revebe uma matriz com [cpf, nome, ISBN, titulo, datadevolucao]
         //para gravar na tabela de emprestimo
         Register rg = new LoanRegister();
-        rg.setTo(TableType.CPF, emprestimo.get(0));
-        rg.setTo(TableType.NAME, emprestimo.get(1));
-        rg.setTo(TableType.ISBN, emprestimo.get(2));
-        rg.setTo(TableType.TITLE, emprestimo.get(3));
-        rg.setTo(TableType.RETURNDATE, emprestimo.get(4));
-        dt.addRegister(rg);
+        for (String [] data: emprestarLivro){
+        	rg.setTo(TableType.CPF, data[0]);
+        	rg.setTo(TableType.NAME, data[1]);
+        	rg.setTo(TableType.ISBN, data[2]);
+        	rg.setTo(TableType.TITLE, data[3]);
+        	rg.setTo(TableType.RETURNDATE, data[4]);
+        	dt.addRegister(rg);
+        }
     }
     
-    public void devolverLivros(Vector<String> devolucao){
+    public void devolverLivros(Vector<String[]>  devolucao){
         //revebe uma matriz com [cpf, nome, ISBN, titulo, datadevolucao]
         //para retirar da tabela de emprestimo
-        Register rg = new LoanRegister();
-        rg.setTo(TableType.CPF, devolucao.get(0));
-        rg.setTo(TableType.NAME, devolucao.get(1));
-        rg.setTo(TableType.ISBN, devolucao.get(2));
-        rg.setTo(TableType.TITLE, devolucao.get(3));
-        rg.setTo(TableType.RETURNDATE, devolucao.get(4));
-        dt.removeRegister(rg);
+    	Register rg = new LoanRegister();
+        for (String [] data: devolucao){
+        	rg.setTo(TableType.CPF, data[0]);
+        	rg.setTo(TableType.NAME, data[1]);
+        	rg.setTo(TableType.ISBN, data[2]);
+        	rg.setTo(TableType.TITLE, data[3]);
+        	rg.setTo(TableType.RETURNDATE, data[4]);
+        	dt.removeRegister(rg);
+        }
     }
     
-    public void incluirNovoLivro(ArrayList<String> novoLivro){
-        //cadastrar um novo objeto livro
-        //[ISBN, Titulo, editora, autores]
-        Register rg = new BookRegister();
-        rg.setTo(TableType.ISBN, novoLivro.get(0));
-        rg.setTo(TableType.TITLE, novoLivro.get(1));
-        rg.setTo(TableType.PUBLISHER, novoLivro.get(2));
-        rg.setTo(TableType.AUTHOR, novoLivro.get(3));
-        dt.addRegister(rg);
-    }
-    
-    public void alterarUmLivro(ArrayList<String> alterarLivro){
-        //alterar um objeto livro existente
-        //[ISBN, Titulo, editora, autores]
-        Register rg = new BookRegister();
-        rg.setTo(TableType.ISBN, alterarLivro.get(0));
-        dt.removeRegister(rg);
-        rg.setTo(TableType.TITLE, alterarLivro.get(1));
-        rg.setTo(TableType.PUBLISHER, alterarLivro.get(2));
-        rg.setTo(TableType.AUTHOR, alterarLivro.get(3));
-        dt.addRegister(rg);
-    }
-    
-    public void excluirUmLivro(String excluirLivro){
-        //exlui um objeto livro existente
-        //[ISBN, Titulo, editora, autores]
-        Register rg = new BookRegister();
-        rg.setTo(TableType.ISBN, excluirLivro);
-        dt.removeRegister(rg);
-    }
     
     //ainda falta os metodos do cadastro de usuario
     //nao consegui terminar
@@ -199,7 +203,6 @@ public class Biblioteca {
     
 
     public void setUsuarios(ArrayList<Usuario> usuarios) {
-        System.err.println(usuarios);
         this.usuarios = usuarios;
     }
 

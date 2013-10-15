@@ -130,9 +130,6 @@ public class Database {
 				.obtainTo(TableType.CITY))));
 		merceList(tabCountry.getLinkList(tabCountry.getKey(register
 				.obtainTo(TableType.COUNTRY))));
-		System.err.println("s" + register.obtainTo(TableType.CPF));
-		System.err.println("s"
-				+ keyTabCPF.getKey(register.obtainTo(TableType.CPF)));
 		merceList(keyTabCPF.getLinkList(keyTabCPF.getKey(register
 				.obtainTo(TableType.CPF))));
 		merceList(tabName.getLinkList(tabName.getKey(register
@@ -325,7 +322,6 @@ public class Database {
 
 	private void addClientData(Data<String> data, String obj, TableType tab) {
 		if (obj != null) {
-			System.out.print(" " + obj);
 			if (!data.hasContent(obj)) {
 				Integer id = data.insert(obj);
 				client.insertTo(tab, id);
